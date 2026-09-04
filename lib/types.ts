@@ -1,9 +1,43 @@
 export interface BusinessProfile {
+  // Identity (owner/contact person)
   name: string;
+  // Factory / business name
+  businessName: string;
   location: string;
   businessType: string;
-  capital: number;
+
+  // FACTORY
+  yearsInOperation: number;
+  registrationType: string;
+  gstStatus: string;
+  udyamStatus: string;
+
+  // PRODUCTION
+  workersCount: number;
+  machineCount: number;
+  monthlyProductionCapacity: number;
+  currentMonthlyProduction: number;
+  capacityUtilization: number; // percent (0-100)
+  deliveryRadiusKm: number;
+  minimumOrderQuantity: number;
+  leadTimeDays: number;
+
+  // PRODUCTS
+  products: string[];
+
+  // BUSINESS (compatibility with existing dashboard)
+  capital: number; // available capital
   monthlyRevenue: number;
+  b2bCustomerCount: number;
+  averageOrderSize: number;
+  majorCustomerTypes: string[];
+  targetCustomerSegments: string[];
+
+  // GOAL
+  revenueGrowthTarget: number; // percent
+  targetTimelineMonths: number;
+  mainObjective: string;
+  // Compatibility label fields used by the existing dashboard/analysis
   mainProduct: string;
   goal: string;
 }

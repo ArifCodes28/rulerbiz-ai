@@ -26,11 +26,11 @@ export default function DashboardPage() {
             <div className="relative flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="min-w-0">
               <div className="mb-4 flex flex-wrap items-center gap-2"><DemoBadge /><DemoBusinessBadge /><span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-brand-50">3-minute SIH demo flow</span></div>
-              <p className="text-sm text-brand-100">Welcome back, {profile.name}</p>
-              <h2 className="mt-1 text-2xl font-black tracking-tight sm:text-3xl">{profile.businessType}</h2>
-              <p className="mt-1 text-sm font-medium text-sky-100">{profile.location} · Main product: {profile.mainProduct}</p>
+              <p className="text-sm text-brand-100">Owner / contact: {profile.name}</p>
+              <h2 className="mt-1 text-2xl font-black tracking-tight sm:text-3xl">{profile.businessName}</h2>
+              <p className="mt-1 text-sm font-medium text-sky-100">{profile.businessType} · {profile.location}</p>
               <p className="mt-3 max-w-3xl text-sm leading-6 text-brand-50">
-                Goal: {profile.goal}. This dashboard uses simulated/demo data to show how an AI advisor could support rural business decisions. No live government systems are connected.
+                Products: {profile.mainProduct}. Goal: {profile.goal}. This dashboard uses structured factory data for a demo purpose; no live government systems are connected.
               </p>
             </div>
             <Link href="/advisor" className="shrink-0 rounded-xl bg-white px-5 py-3 text-center text-sm font-bold text-brand-700 shadow-sm hover:bg-brand-50">
@@ -68,6 +68,19 @@ export default function DashboardPage() {
             <InsightStrip label="Market opportunity" value={analysis.feasibility.marketOpportunity} />
             <InsightStrip label="Risk control" value={100 - analysis.feasibility.riskScore} />
           </div>
+
+          <Card title="Factory Overview" subtitle="Production, workforce and business profile" demo>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <FactoryStat label="Workers" value={String(profile.workersCount)} />
+              <FactoryStat label="Machines" value={String(profile.machineCount)} />
+              <FactoryStat label="Monthly capacity" value={`${profile.monthlyProductionCapacity.toLocaleString("en-IN")} units`} />
+              <FactoryStat label="Capacity utilization" value={`${profile.capacityUtilization}%`} />
+              <FactoryStat label="Current production" value={`${profile.currentMonthlyProduction.toLocaleString("en-IN")} units`} />
+              <FactoryStat label="B2B customers" value={String(profile.b2bCustomerCount)} />
+              <FactoryStat label="Avg order size" value={formatINRCompact(profile.averageOrderSize)} />
+              <FactoryStat label="Min order qty" value={`${profile.minimumOrderQuantity} units`} />
+            </div>
+          </Card>
 
           <div className="grid gap-6 xl:grid-cols-2">
             <FeasibilitySection analysis={analysis} profile={profile} />
@@ -118,6 +131,15 @@ function InsightStrip({ label, value }: { label: string; value: number }) {
       <div className="mt-3 h-2.5 rounded-full bg-slate-200">
         <div className="h-2.5 rounded-full bg-gradient-to-r from-brand-500 to-sky-500" style={{ width: `${value}%` }} />
       </div>
+    </div>
+  );
+}
+
+function FactoryStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl border border-slate-100 bg-slate-50 p-3">
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</p>
+      <p className="mt-1 text-lg font-black text-slate-950">{value}</p>
     </div>
   );
 }

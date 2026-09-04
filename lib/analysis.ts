@@ -102,20 +102,20 @@ function computeRecommendations(p: BusinessProfile): Recommendation[] {
   const city = p.location.split(",")[0];
   return [
     {
-      title: `Expand to nearby market — ${city} weekly bazaar`,
-      description: `Footfall data for ${city} indicates unmet demand for ${p.mainProduct}. A weekend stall could add an estimated 15–25% to monthly revenue with minimal fixed cost.`,
+      title: "Pursue bulk orders from near-by institutions",
+      description: `${p.targetCustomerSegments.length ? p.targetCustomerSegments.slice(0, 3).join(", ") : "Hotels and schools"} near ${p.location} buy uniforms and workwear in bulk. One institutional contract could add ~₹${Math.round(
+        p.monthlyRevenue * 0.3
+      ).toLocaleString("en-IN")} of predictable monthly revenue, given your ${p.capacityUtilization}% current capacity utilisation leaves room for more output.`,
       impact: "High",
     },
     {
-      title: "Add a complementary product line",
-      description: `Customers buying ${p.mainProduct} frequently also purchase related items. Bundling complementary stock can raise average bill value by 10–18% without new customer acquisition cost.`,
+      title: "Add customisation / embroidery to win enterprise contracts",
+      description: `Enterprise uniform buyers value branding and size customisation. Offering logo embroidery, grading and consistent quality on ${p.mainProduct} can raise order value by 10–18% without new customer acquisition cost.`,
       impact: "Medium",
     },
     {
-      title: "Target institutional / bulk buyers",
-      description: `Schools, hostels and small caterers near ${p.location} buy in bulk on monthly cycles. One institutional contract could stabilise ₹${Math.round(
-        p.monthlyRevenue * 0.3
-      ).toLocaleString("en-IN")} of predictable monthly revenue.`,
+      title: "Expand your active enterprise customer base",
+      description: `With ${p.b2bCustomerCount} B2B customers, targeting ${p.targetCustomerSegments.join(", ")} within your ${p.deliveryRadiusKm} km delivery radius could raise utilisation from ${p.capacityUtilization}% toward capacity and support your ${p.revenueGrowthTarget}% revenue growth goal.`,
       impact: "High",
     },
   ];
@@ -126,21 +126,21 @@ function computeOpportunities(p: BusinessProfile): Opportunity[] {
   const city = p.location.split(",")[0];
   return [
     {
-      title: `${city} Municipal Corp — supply contract`,
+      title: `${city} civic body — uniform supply contract (Demo)`,
       category: "Government Tender",
-      description: `Demo tender notice: supply of ${p.mainProduct} to local government offices and schools. Indicative value ₹2–4 lakh / year.`,
+      description: `Demonstration tender notice: supply of uniforms / workwear to local government offices and schools. Indicative value ₹2–4 lakh / year. Demo data only.`,
       matchScore: clamp(70 + seededRange(seed, 0, 25)),
     },
     {
-      title: `New weekly market — ${city} outskirts`,
+      title: "Hotel & restaurant group bulk uniform order",
       category: "New Local Market",
-      description: `A new weekly market is launching 6 km from your location with low stall fees and no direct competitor for your category yet.`,
+      description: `Hospitality venues within a ${p.deliveryRadiusKm} km radius renew staff uniforms seasonally and in bulk. Pursuing these fits your bulk/institutional focus. Demo data only.`,
       matchScore: clamp(60 + seededRange(seed >> 2, 0, 30)),
     },
     {
-      title: "List products on ONDC / local delivery apps",
+      title: "Retailer & wholesaler bulk supply channel",
       category: "Online Selling",
-      description: `Hyperlocal delivery apps are onboarding sellers in ${city}. Online listings could add a new sales channel with near-zero upfront cost.`,
+      description: `Retailers and wholesalers in ${city} source ready-made garments in bulk. A B2B supply arrangement could add a stable channel aligned with your enterprise sales focus. Demo data only.`,
       matchScore: clamp(55 + seededRange(seed >> 3, 0, 35)),
     },
   ];
@@ -152,25 +152,25 @@ function computeIntelligence(p: BusinessProfile): IntelligenceItem[] {
     {
       title: "Input price trend",
       tag: "Pricing",
-      update: `Wholesale prices for key inputs used in ${p.mainProduct} have softened ~4% this week in the ${city} mandi.`,
+      update: `Wholesale prices for fabric and garment inputs used in ${p.mainProduct} have softened ~4% this week in the ${city} region.`,
       whyItMatters:
-        "Buying stock this week could improve your gross margin by 2–3% before retail prices adjust.",
+        "Buying material this week could improve your garment gross margin by 2–3% before prices rise.",
     },
     {
-      title: "Festival demand window",
+      title: "Uniform season window",
       tag: "Demand",
       update:
-        "A regional festival period starts in ~3 weeks, historically lifting local retail footfall 20–35%.",
+        "School admission and annual uniform-renewal season is approaching, historically lifting uniform orders 20–35%.",
       whyItMatters:
-        "Stocking up and planning a small promotion now lets you capture the seasonal demand spike instead of running out of inventory.",
+        "Preparing capacity and reaching out to schools and institutions now lets you capture the seasonal bulk-order spike.",
     },
     {
-      title: "New credit scheme deadline",
+      title: "Working-capital scheme deadline",
       tag: "Finance",
       update:
-        "Demo notice: applications for the state micro-enterprise interest subsidy close at the end of this month.",
+        "Demo notice: applications for the state MSME working-capital subsidy close at the end of this month.",
       whyItMatters:
-        "If you plan to take a loan for your expansion goal, applying before the deadline could reduce your effective interest rate by up to 2%.",
+        "If you plan finance for material procurement or capacity expansion, applying before the deadline could reduce your effective interest rate by up to 2%.",
     },
   ];
 }
@@ -178,21 +178,21 @@ function computeIntelligence(p: BusinessProfile): IntelligenceItem[] {
 function computeCustomers(p: BusinessProfile): CustomerSuggestion[] {
   return [
     {
-      customerName: "Sunita Traders",
-      business: "Local reseller — monthly bulk buyer",
-      reason: `Has ordered ${p.mainProduct} from you 6 times, but no order in the last 5 weeks (usual cycle: 4 weeks).`,
+      customerName: "S. K. Garments",
+      business: "Local apparel retailer — recurrent bulk buyer",
+      reason: `Has ordered ${p.mainProduct} from you 6 times, but placed no order in the last 5 weeks (usual cycle: 4 weeks).`,
       suggestedAction:
-        "Call to check stock levels and offer this week's wholesale rate. Reordering now fits their normal cycle.",
+        "Call to check restock needs and offer this season's bulk rate. Reordering now fits their normal cycle.",
       priority: "High",
       lastContact: "5 weeks ago",
     },
     {
-      customerName: "Green Valley Hostel",
-      business: "Institutional buyer — 120 residents",
+      customerName: "Green Valley School",
+      business: "Institutional buyer — uniform season",
       reason:
-        "Asked for a monthly supply quote last month but no decision yet. Similar institutions typically decide within 4–6 weeks.",
+        "Asked for a bulk uniform quote last month but no decision yet. Institutions typically decide within 4–6 weeks before the season.",
       suggestedAction:
-        "Follow up with a revised quote including free weekly delivery — a small concession that often closes institutional deals.",
+        "Follow up with a revised quote including size-grading and embroidery — a small concession that often closes institutional deals.",
       priority: "Medium",
       lastContact: "3 weeks ago",
     },
@@ -215,36 +215,35 @@ export function analyzeBusiness(p: BusinessProfile): BusinessAnalysis {
 /** Mock AI advisor — keyword-matched, profile-personalised demo responses. */
 export function advisorReply(question: string, p: BusinessProfile, a: BusinessAnalysis): string {
   const q = question.toLowerCase();
-  const city = p.location.split(",")[0];
 
   if (q.includes("grow")) {
     return `Based on your profile — a ${p.businessType.toLowerCase()} in ${p.location} earning ₹${p.monthlyRevenue.toLocaleString("en-IN")}/month — here is your fastest growth path:
 
-1. Expand to the ${city} weekly bazaar (est. +15–25% revenue, low cost).
-2. Add a complementary product line to raise average bill value by 10–18%.
-3. Close one institutional/bulk buyer for ~₹${Math.round(p.monthlyRevenue * 0.3).toLocaleString("en-IN")}/month of stable revenue.
+1. Win bulk uniform / workwear orders from ${p.targetCustomerSegments.slice(0, 2).join(" and ") || p.targetCustomerSegments.join(", ")} within your ${p.deliveryRadiusKm} km radius.
+2. Add customisation and embroidery to raise average order value by 10–18%.
+3. Grow from ${p.b2bCustomerCount} B2B customers to reduce idle capacity (you are at ~${p.capacityUtilization}% utilisation).
 
-Your business health score of ${a.healthScore}/100 suggests you can pursue two of these simultaneously. Start with the weekly bazaar — it needs the least capital.
+Your business health score of ${a.healthScore}/100 suggests you can pursue two of these simultaneously. Start with converting existing nearby institutions to repeat bulk buyers.
 
 (Demo response — no live market/government systems are connected.)`;
   }
   if (q.includes("expand")) {
-    return `Expansion looks viable for you right now. Your overall feasibility score is ${a.feasibility.overallScore}/100 (demand: ${a.feasibility.demandScore}/100, risk: ${a.feasibility.riskScore}/100).
+    return `Expansion looks viable for you right now. Your overall feasibility score is ${a.feasibility.overallScore}/100 (demand: ${a.feasibility.demandScore}/100, risk: ${a.feasibility.riskScore}/100), and you have spare capacity to fulfil more orders.
 
-My recommendation: expand in stages.
-• Stage 1 (Month 1–2): Weekend stall at the ${city} weekly market — cost under ₹15,000.
-• Stage 2 (Month 3–6): Reinvest profits into a second location once Stage 1 proves demand.
+My recommendation: expand your customer base before expanding machines.
+• Stage 1 (Month 1–2): Target hotels, schools and factories for bulk uniform orders — low capex, uses existing capacity.
+• Stage 2 (Month 3–6): Reinvest into capacity (more machines/workers) only once utilisation crosses ~85%.
 
-Your goal — "${p.goal}" — is achievable within 6–9 months at your current revenue run-rate, provided Stage 1 hits at least 60% of projected sales.
+Your goal — "${p.goal}" — is achievable within ${p.targetTimelineMonths} months if institutional conversion hits at least 60% of quoted deals.
 
 (Demo response — no live market/government systems are connected.)`;
   }
   if (q.includes("capital") || q.includes("money") || q.includes("invest")) {
-    return `You have ₹${p.capital.toLocaleString("en-IN")} available. Here is a sensible allocation:
+    return `You have ₹${p.capital.toLocaleString("en-IN")} available. For a garment factory, a sensible allocation is:
 
-• 50% (₹${Math.round(p.capital * 0.5).toLocaleString("en-IN")}) — inventory ahead of the festival demand window (see Today's Intelligence).
-• 30% (₹${Math.round(p.capital * 0.3).toLocaleString("en-IN")}) — expansion pilot at the ${city} weekly market.
-• 20% (₹${Math.round(p.capital * 0.2).toLocaleString("en-IN")}) — emergency buffer. Never deploy 100% of capital; rural cash flows are seasonal.
+• 50% (₹${Math.round(p.capital * 0.5).toLocaleString("en-IN")}) — fabric & material procurement ahead of the uniform season.
+• 30% (₹${Math.round(p.capital * 0.3).toLocaleString("en-IN")}) — sample development and client visits to win institutional contracts.
+• 20% (₹${Math.round(p.capital * 0.2).toLocaleString("en-IN")}) — working-capital buffer. Never deploy 100% of capital; B2B payments are often on credit.
 
 For your full expansion plan (est. cost ₹${a.financialPlan.estimatedProjectCost.toLocaleString("en-IN")}), you'd need an additional ₹${a.financialPlan.loanRequirement.toLocaleString("en-IN")} — ${a.financialPlan.financingOption} at ~${a.financialPlan.interestRate}% looks suitable.
 
@@ -254,13 +253,13 @@ For your full expansion plan (est. cost ₹${a.financialPlan.estimatedProjectCos
     const top = [...a.opportunities].sort((x, y) => y.matchScore - x.matchScore)[0];
     return `Of your 3 current opportunities, the best match is: ${top.title} (${top.category}, match score ${top.matchScore}%).
 
-Why: it aligns with your existing strength in ${p.mainProduct}, fits your available capital of ₹${p.capital.toLocaleString("en-IN")}, and directly supports your goal — "${p.goal}".
+Why: it aligns with your products (${p.mainProduct}), your bulk/institutional focus, your available capital of ₹${p.capital.toLocaleString("en-IN")}, and directly supports your goal — "${p.goal}".
 
-Suggested next step: start with the lowest-effort option this week, then manually review any real tender/scheme documents outside this prototype.
+Suggested next step: start with the two priority demo opportunities this week, then manually review any real tender/scheme documents outside this prototype.
 
 (Demo response — no live tender/government systems are connected.)`;
   }
-  return `Thanks, ${p.name}. Based on your ${p.businessType.toLowerCase()} in ${p.location}, here's my take: your business health score is ${a.healthScore}/100 and feasibility is ${a.feasibility.overallScore}/100. Focus this month on (1) pre-festival stocking, (2) the ${city} weekly market pilot, and (3) following up with Sunita Traders — a bulk buyer who's overdue for reorder.
+  return `Thanks, ${p.name}. Based on your ${p.businessType.toLowerCase()} in ${p.location}, here's my take: your business health score is ${a.healthScore}/100 and feasibility is ${a.feasibility.overallScore}/100. Focus this month on (1) targeting bulk uniform/workwear orders from institutions, (2) converting pipeline quotes from your ${p.b2bCustomerCount} B2B customers, and (3) following up with S. K. Garments — a bulk buyer overdue for reorder.
 
 Try asking: "How can I grow my business?", "Should I expand?", "What should I do with my available capital?" or "Which opportunity is best for me?"
 

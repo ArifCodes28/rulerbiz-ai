@@ -16,7 +16,7 @@ export default function FinancialPlanPage() {
             </p>
             <ul className="mt-4 space-y-2 text-sm text-slate-700">
               <li>• Keep at least 20% of capital as working cash buffer.</li>
-              <li>• Test expansion through a low-cost weekly market stall.</li>
+              <li>• Test expansion through low-capex bulk orders that use existing capacity before adding machines.</li>
               <li>• Take a MUDRA/MSME loan only if repayment is below 15–20% of monthly revenue.</li>
             </ul>
           </Card>

@@ -22,7 +22,7 @@ export default function LandingPage() {
         <section className="grid flex-1 items-center gap-10 py-16 lg:grid-cols-2">
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-3 py-1 text-sm font-medium text-brand-700 shadow-sm">
-              3-minute demo · Dairy Farm in rural West Bengal
+              Garment Manufacturing / Tailoring Factory · Nadia District, West Bengal
             </div>
             <h1 className="max-w-3xl text-4xl font-black tracking-tight text-slate-950 sm:text-6xl">
               RuralBiz AI
@@ -38,7 +38,7 @@ export default function LandingPage() {
             <div className="mt-5 grid max-w-2xl gap-2 text-sm text-slate-700 sm:grid-cols-3">
               <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">₹1,00,000 capital</div>
               <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">₹1,50,000 monthly revenue</div>
-              <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">30% growth goal</div>
+              <div className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">Bulk / institutional focus</div>
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -60,7 +60,7 @@ export default function LandingPage() {
             <div className="rounded-2xl bg-slate-50 p-5">
               <div className="mb-4 flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-slate-900">Demo Business: Dairy Farm</p>
+                  <p className="text-sm font-semibold text-slate-900">Demo Business: Garment Factory</p>
                   <p className="text-xs text-slate-500">Simulated dashboard preview</p>
                 </div>
                 <span className="rounded-full bg-brand-100 px-2.5 py-1 text-xs font-bold text-brand-700">82/100</span>
